@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d3b2e">
+<title>Tracker Sholat Duha 40 Hari</title>
+<style>
+/* ============================================================
+   RESET & ROOT VARIABLES
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --green-dark: #0d3b2e;
+  --green-deep: #0a2c22;
+  --green: #14805e;
+  --green-light: #1fa87a;
+  --green-soft: #d4f0e4;
+  --gold: #d4af37;
+  --gold-light: #f0d879;
+  --gold-soft: #faf3d9;
+  --cream: #fdfbf5;
+  --paper: #ffffff;
+  --text: #1a2e28;
+  --text-soft: #4a5f58;
+  --muted: #8fa39b;
+  --danger: #c0392b;
+  --info: #2980b9;
+  --shadow-sm: 0 2px 8px rgba(13, 59, 46, 0.08);
+  --shadow: 0 10px 30px rgba(13, 59, 46, 0.15);
+  --shadow-lg: 0 20px 50px rgba(13, 59, 46, 0.25);
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font-body: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-arabic: 'Traditional Arabic', 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
+}
+
+[data-theme="light"] {
+  --green-dark: #0d3b2e;
+  --green-deep: #fdfbf5;
+  --cream: #ffffff;
+  --text: #1a2e28;
+  --text-soft: #4a5f58;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(circle at 15% 8%, rgba(212, 175, 55, 0.14), transparent 42%),
+    radial-gradient(circle at 88% 92%, rgba(20, 128, 94, 0.22), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(13, 59, 46, 0.95), var(--green-deep) 100%),
+    linear-gradient(160deg, #0d3b2e 0%, #071d16 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text);
+  padding: env(safe-area-inset-top) 14px calc(72px + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ornamen bintang latar */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 24%, rgba(212,175,55,0.45), transparent),
+    radial-gradient(2px 2px at 72% 12%, rgba(240,216,121,0.35), transparent),
+    radial-gradient(1.5px 1.5px at 38% 68%, rgba(212,175,55,0.4), transparent),
+    radial-gradient(2px 2px at 86% 58%, rgba(240,216,121,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 8% 88%, rgba(212,175,55,0.35), transparent),
+    radial-gradient(1.5px 1.5px at 56% 42%, rgba(240,216,121,0.28), transparent),
+    radial-gradient(1px 1px at 30% 92%, rgba(212,175,55,0.4), transparent),
+    radial-gradient(1px 1px at 92% 30%, rgba(240,216,121,0.3), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: twinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* ============================================================
+   APP WRAPPER
+   ============================================================ */
+.app {
+  width: 100%;
+  max-width: 620px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header.top {
+  text-align: center;
+  color: var(--cream);
+  padding: 12px 0 6px;
+}
+
+.arabic {
+  font-family: var(--font-arabic);
+  font-size: 34px;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 14px rgba(212, 175, 55, 0.45);
+  direction: rtl;
+  line-height: 1.2;
+}
+
+header.top h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+
+header.top p {
+  font-size: 13px;
+  color: rgba(253, 251, 245, 0.62);
+  font-weight: 400;
+}
+
+/* ============================================================
+   TAB NAV
+   ============================================================ */
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(253, 251, 245, 0.08);
+  padding: 5px;
+  border-radius: 18px;
+  margin: 18px 0 20px;
+  border: 1px solid rgba(253, 251, 245, 0.1);
+  backdrop-filter: blur(8px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex: 1;
+  min-width: 74px;
+  padding: 10px 8px;
+  text-align: center;
+  border-radius: 13px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(253, 251, 245, 0.65);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.tab .icn { display: block; font-size: 15px; margin-bottom: 2px; }
+
+.tab.active {
+  background: linear-gradient(150deg, var(--green), var(--green-light));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(31, 168, 122, 0.4);
+}
+
+.tab:active { transform: scale(0.95); }
+
+/* ============================================================
+   VIEWS
+   ============================================================ */
+.view { display: none; animation: fadeUp 0.4s ease; }
+.view.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: linear-gradient(150deg, rgba(253,251,245,0.98), rgba(250,247,235,0.94));
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 150px; height: 150px;
+  border: 2px solid rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.card-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(20,128,94,0.3), transparent);
+}
+
+/* ============================================================
+   PROGRESS CARD
+   ============================================================ */
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.progress-number {
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--green-dark);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.progress-number span {
+  font-size: 17px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.ring-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+
+.ring-wrap svg { transform: rotate(-90deg); }
+
+.ring-wrap .pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.bar-track {
+  height: 12px;
+  background: rgba(20, 128, 94, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green), var(--green-light), var(--gold));
+  border-radius: 20px;
+  transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 12px rgba(31, 168, 122, 0.5);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat {
+  text-align: center;
+  padding: 12px 6px;
+  background: rgba(20, 128, 94, 0.07);
+  border-radius: 14px;
+  border: 1px solid rgba(20, 128, 94, 0.1);
+  transition: var(--transition);
+}
+
+.stat:active { transform: scale(0.96); }
+
+.stat b {
+  display: block;
+  font-size: 21px;
+  color: var(--green-dark);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat small {
+  font-size: 10px;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   GRID HARI
+   ============================================================ */
+.section-title {
+  color: var(--gold-light);
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin: 22px 4px 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(212,175,55,0.5), transparent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.day {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  background: rgba(253, 251, 245, 0.09);
+  border: 1.5px solid rgba(253, 251, 245, 0.15);
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+  backdrop-filter: blur(4px);
+  user-select: none;
+  padding: 4px;
+  font-family: inherit;
+}
+
+.day .num {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.day .lbl {
+  font-size: 8.5px;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.day:active { transform: scale(0.9); }
+
+.day.done {
+  background: linear-gradient(150deg, var(--green), var(--green-light));
+  border-color: var(--gold);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(31, 168, 122, 0.45);
+}
+
+.day.done::after {
+  content: '✓';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 22px;
+  height: 22px;
+  background: var(--gold);
+  color: var(--green-dark);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  animation: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop {
+  0%   { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+.day.today {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25), 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+.day.today:not(.done) {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.day.missed {
+  border-color: rgba(192, 57, 43, 0.4);
+  background: rgba(192, 57, 43, 0.12);
+}
+
+.day.has-note::before {
+  content: '📝';
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-size: 9px;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.btn-reset,
+.btn-outline,
+.btn-primary {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  letter-spacing: 0.4px;
+}
+
+.btn-reset {
+  background: rgba(253, 251, 245, 0.08);
+  color: var(--cream);
+  border: 1.5px solid rgba(253, 251, 245, 0.2);
+}
+
+.btn-reset:active { transform: scale(0.96); background: rgba(253,251,245,0.15); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--green);
+  border: 1.5px solid rgba(20, 128, 94, 0.35);
+}
+
+.btn-outline:active { transform: scale(0.96); background: rgba(20,128,94,0.08); }
+
+.btn-primary {
+  background: linear-gradient(150deg, var(--green), var(--green-light));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(31, 168, 122, 0.4);
+}
+
+.btn-primary:active { transform: scale(0.96); }
+
+/* ============================================================
+   STATISTIK VIEW
+   ============================================================ */
+.chart-wrap {
+  background: rgba(20, 128, 94, 0.06);
+  border-radius: 18px;
+  padding: 18px 12px 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 5px;
+  height: 130px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(20, 128, 94, 0.15);
+}
+
+.bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 100%;
+  max-width: 22px;
+  background: linear-gradient(180deg, var(--green-light), var(--green));
+  border-radius: 6px 6px 3px 3px;
+  transition: height 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-height: 4px;
+  box-shadow: 0 2px 6px rgba(31, 168, 122, 0.25);
+  position: relative;
+}
+
+.bar.empty {
+  background: rgba(20, 128, 94, 0.15);
+  box-shadow: none;
+}
+
+.bar-label {
+  font-size: 9.5px;
+  color: var(--text-soft);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Heatmap */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.hm-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: rgba(20, 128, 94, 0.1);
+  transition: var(--transition);
+  position: relative;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.hm-cell.done {
+  background: linear-gradient(150deg, var(--green), var(--green-light));
+  box-shadow: 0 2px 6px rgba(31, 168, 122, 0.3);
+}
+
+.hm-cell.today {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.hm-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 10.5px;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+.hm-legend .box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+/* Milestone */
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.ms {
+  text-align: center;
+  padding: 14px 6px;
+  background: rgba(20, 128, 94, 0.06);
+  border-radius: 14px;
+  border: 1.5px solid rgba(20, 128, 94, 0.1);
+  transition: var(--transition);
+}
+
+.ms.locked { opacity: 0.4; filter: grayscale(1); }
+
+.ms.unlocked {
+  background: linear-gradient(150deg, rgba(212,175,55,0.18), rgba(20,128,94,0.12));
+  border-color: var(--gold);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.2);
+}
+
+.ms .badge-ico {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ms b {
+  display: block;
+  font-size: 13px;
+  color: var(--green-dark);
+  font-weight: 800;
+}
+
+.ms small {
+  font-size: 9.5px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   JURNAL VIEW
+   ============================================================ */
+.journal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.journal-item {
+  background: linear-gradient(150deg, rgba(253,251,245,0.98), rgba(250,247,235,0.94));
+  border-radius: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.journal-item:active { transform: scale(0.98); }
+
+.journal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.journal-head .day-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--green-dark);
+  letter-spacing: 0.3px;
+}
+
+.journal-head .date {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.journal-body {
+  font-size: 12.5px;
+  color: var(--text-soft);
+  line-height: 1.6;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.journal-empty {
+  text-align: center;
+  padding: 36px 20px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.journal-empty .ico {
+  font-size: 42px;
+  display: block;
+  margin-bottom: 10px;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   GUIDE VIEW
+   ============================================================ */
+.guide-step {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px dashed rgba(20, 128, 94, 0.15);
+}
+.guide-step:last-child { border-bottom: none; }
+
+.guide-step .n {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(150deg, var(--green), var(--green-light));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(31, 168, 122, 0.3);
+}
+
+.guide-step .body h4 {
+  font-size: 13.5px;
+  color: var(--green-dark);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.guide-step .body p {
+  font-size: 12.5px;
+  color: var(--text-soft);
+  line-height: 1.65;
+}
+
+.guide-arabic {
+  font-family: var(--font-arabic);
+  font-size: 22px;
+  color: var(--green-dark);
+  text-align: center;
+  direction: rtl;
+  line-height: 1.8;
+  padding: 16px 12px;
+  background: rgba(212, 175, 55, 0.08);
+  border-radius: 14px;
+  margin: 8px 0 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.guide-trans {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-style: italic;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.waktu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin-top: 10px;
+}
+
+.waktu-item {
+  text-align: center;
+  padding: 12px 6px;
+  background: rgba(20, 128, 94, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(20, 128, 94, 0.12);
+}
+
+.waktu-item b {
+  display: block;
+  font-size: 12.5px;
+  color: var(--green-dark);
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+
+.waktu-item small {
+  font-size: 10.5px;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+/* ============================================================
+   MODAL / SHEET
+   ============================================================ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 29, 22, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 50;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.25s ease;
+}
+
+.overlay.active { display: flex; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.sheet {
+  width: 100%;
+  max-width: 620px;
+  background: linear-gradient(160deg, var(--cream), var(--gold-soft));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 24px 22px calc(28px + env(safe-area-inset-bottom));
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 88vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.sheet-handle {
+  width: 42px;
+  height: 4px;
+  background: rgba(20, 128, 94, 0.25);
+  border-radius: 10px;
+  margin: 0 auto 16px;
+}
+
+.sheet h3 {
+  font-size: 18px;
+  color: var(--green-dark);
+  margin-bottom: 4px;
+  font-weight: 800;
+}
+
+.sheet .sub {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-bottom: 18px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(20, 128, 94, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  transition: var(--transition);
+  resize: vertical;
+}
+
+.field textarea { min-height: 90px; }
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(31, 168, 122, 0.15);
+}
+
+.mood-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  flex: 1;
+  min-width: 60px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  background: rgba(20, 128, 94, 0.08);
+  border: 1.5px solid transparent;
+  font-size: 11.5px;
+  color: var(--text-soft);
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.mood-btn .em { display: block; font-size: 22px; margin-bottom: 2px; }
+
+.mood-btn.active {
+  background: linear-gradient(150deg, rgba(212,175,55,0.25), rgba(20,128,94,0.2));
+  border-color: var(--gold);
+  color: var(--green-dark);
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 120px);
+  background: linear-gradient(135deg, var(--green), var(--green-light));
+  color: #fff;
+  padding: 13px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 13.5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+  white-space: nowrap;
+  max-width: 92vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toast.show { transform: translate(-50%, 0); }
+
+/* ============================================================
+   QUOTE
+   ============================================================ */
+.quote {
+  margin-top: 24px;
+  padding: 16px 18px;
+  background: rgba(212, 175, 55, 0.08);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 16px 16px 0;
+  color: rgba(253, 251, 245, 0.85);
+  font-size: 12.5px;
+  line-height: 1.7;
+  font-style: italic;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.4s;
+}
+
+.quote cite {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--gold-light);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 26px;
+  font-size: 11px;
+  color: rgba(253, 251, 245, 0.35);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  display: none;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 380px) {
+  .grid { gap: 8px; }
+  .day .num { font-size: 15px; }
+  .progress-number { font-size: 36px; }
+  .arabic { font-size: 28px; }
+  .stats { gap: 7px; }
+  .stat b { font-size: 18px; }
+  .heatmap { grid-template-columns: repeat(6, 1fr); }
+  .milestones { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(8, 1fr); }
+  .heatmap { grid-template-columns: repeat(10, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ============ HEADER ============ -->
+  <header class="top">
+    <div class="arabic">صَلَاةُ الضُّحَى</div>
+    <h1>Tracker Sholat Duha</h1>
+    <p>Tantangan Istiqomah 40 Hari</p>
+  </header>
+
+  <!-- ============ TABS ============ -->
+  <nav class="tabs">
+    <button class="tab active" data-view="tracker"><span class="icn">📿</span>Tracker</button>
+    <button class="tab" data-view="stats"><span class="icn">📊</span>Statistik</button>
+    <button class="tab" data-view="journal"><span class="icn">📝</span>Jurnal</button>
+    <button class="tab" data-view="guide"><span class="icn">📖</span>Panduan</button>
+  </nav>
+
+  <!-- ============ VIEW: TRACKER ============ -->
+  <section class="view active" id="view-tracker">
+    <div class="card">
+      <div class="progress-top">
+        <div>
+          <div class="progress-label">Progress Kamu</div>
+          <div class="progress-number" id="doneCount">0<span>/ 40</span></div>
+        </div>
+        <div class="ring-wrap">
+          <svg width="84" height="84" viewBox="0 0 84 84">
+            <circle cx="42" cy="42" r="36" stroke="rgba(20,128,94,0.12)" stroke-width="7" fill="none"/>
+            <circle id="ring" cx="42" cy="42" r="36" stroke="url(#gradRing)" stroke-width="7" fill="none"
+                    stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"
+                    style="transition: stroke-dashoffset 0.8s cubic-bezier(0.34,1.56,0.64,1)"/>
+            <defs>
+              <linearGradient id="gradRing" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#14805e"/>
+                <stop offset="60%" stop-color="#1fa87a"/>
+                <stop offset="100%" stop-color="#d4af37"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="pct" id="pctText">0%</div>
+        </div>
+      </div>
+
+      <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+
+      <div class="stats">
+        <div class="stat"><b id="statDone">0</b><small>Hari Selesai</small></div>
+        <div class="stat"><b id="statLeft">40</b><small>Sisa Hari</small></div>
+        <div class="stat"><b id="statStreak">0</b><small>Streak 🔥</small></div>
+      </div>
+    </div>
+
+    <div class="section-title">40 Hari Perjalanan</div>
+    <div class="grid" id="grid"></div>
+
+    <div class="actions">
+      <button class="btn-outline" id="btnExport">↧ Export</button>
+      <button class="btn-reset" id="resetBtn">↺ Reset</button>
+    </div>
+  </section>
+
+  <!-- ============ VIEW: STATISTIK ============ -->
+  <section class="view" id="view-stats">
+    <div class="card">
+      <div class="card-title">Ringkasan</div>
+      <div class="stats" style="margin-top:0">
+        <div class="stat"><b id="sTotal">0</b><small>Total Hari</small></div>
+        <div class="stat"><b id="sBest">0</b><small>Streak Terbaik</small></div>
+        <div class="stat"><b id="sRate">0%</b><small>Konsistensi</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Progress per Pekan</div>
+      <div class="chart-wrap">
+        <div class="bars" id="bars"></div>
+        <div style="display:flex; justify-content:space-between; margin-top:6px; padding:0 4px;">
+          <span class="bar-label">Minggu 1</span>
+          <span class="bar-label">Minggu 2</span>
+          <span class="bar-label">Minggu 3</span>
+          <span class="bar-label">Minggu 4</span>
+          <span class="bar-label">Minggu 5</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Heatmap 40 Hari</div>
+      <div class="heatmap" id="heatmap"></div>
+      <div class="hm-legend">
+        <span class="box" style="background:rgba(20,128,94,0.1)"></span> Belum
+        <span class="box" style="background:linear-gradient(150deg,#14805e,#1fa87a); margin-left:8px"></span> Selesai
+        <span class="box" style="border:1px solid #d4af37; margin-left:8px"></span> Hari ini
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Pencapaian</div>
+      <div class="milestones" id="milestones"></div>
+    </div>
+  </section>
+
+  <!-- ============ VIEW: JURNAL ============ -->
+  <section class="view" id="view-journal">
+    <div class="section-title">Catatan Harian</div>
+    <div class="journal-list" id="journalList"></div>
+  </section>
+
+  <!-- ============ VIEW: PANDUAN ============ -->
+  <section class="view" id="view-guide">
+    <div class="card">
+      <div class="card-title">Niat Sholat Duha</div>
+      <div class="guide-arabic">
+        أُصَلِّي سُنَّةَ الضُّحَى رَكْعَتَيْنِ لِلّٰهِ تَعَالَى
+      </div>
+      <div class="guide-trans">
+        "Aku niat sholat sunnah Duha dua rakaat karena Allah Ta'ala."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Tata Cara</div>
+      <div class="guide-step">
+        <div class="n">1</div>
+        <div class="body">
+          <h4>Berdiri & Niat</h4>
+          <p>Menghadap kiblat, membaca niat di dalam hati bersamaan takbiratul ihram.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="n">2</div>
+        <div class="body">
+          <h4>Rakaat Pertama</h4>
+          <p>Al-Fatihah, lalu surat pendek (dianjurkan Asy-Syams atau Al-Kafirun).</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="n">3</div>
+        <div class="body">
+          <h4>Rakaat Kedua</h4>
+          <p>Al-Fatihah, lalu surat pendek (dianjurkan Ad-Dhuha atau Al-Ikhlas).</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="n">4</div>
+        <div class="body">
+          <h4>Salam & Doa</h4>
+          <p>Menutup dengan salam, lalu berdoa memohon rezeki, keberkahan, dan ampunan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Waktu Sholat Duha</div>
+      <div class="waktu-grid">
+        <div class="waktu-item"><b>+15 mnt</b><small>Setelah Syuruq</small></div>
+        <div class="waktu-item"><b>±09.00</b><small>Waktu Utama</small></div>
+        <div class="waktu-item"><b>-10 mnt</b><small>Sebelum Dzuhur</small></div>
+      </div>
+      <p style="font-size:12px;color:var(--text-soft);line-height:1.7;margin-top:12px;text-align:center;">
+        Waktu terbaik saat matahari sudah naik sekitar satu tombak (±15 menit setelah terbit) hingga sebelum masuk waktu Dzuhur.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Keutamaan</div>
+      <div class="guide-step">
+        <div class="n">✦</div>
+        <div class="body">
+          <h4>Diampuni Dosa</h4>
+          <p>"Barangsiapa sholat Duha, dosanya diampuni meski sebanyak buih di lautan." <em>(HR. At-Tirmidzi)</em></p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="n">✦</div>
+        <div class="body">
+          <h4>Pahala Sedekah 360 Sendi</h4>
+          <p>Setiap sendi manusia butuh sedekah, dan dua rakaat Duha mencukupinya. <em>(HR. Muslim)</em></p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="n">✦</div>
+        <div class="body">
+          <h4>Dijaga Rezekinya</h4>
+          <p>Allah menjamin rezeki bagi hamba yang menjaga sholat Duha. <em>(HR. Ahmad)</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quote" id="dailyQuote"></div>
+
+  <div class="footer">Semoga Allah menerima amal ibadah kita ✦</div>
+</div>
+
+<!-- ============ OVERLAY: DAY DETAIL ============ -->
+<div class="overlay" id="dayOverlay">
+  <div class="sheet" id="daySheet">
+    <div class="sheet-handle"></div>
+    <h3 id="dayTitle">Hari ke-1</h3>
+    <div class="sub" id="daySub">Catat ibadahmu hari ini</div>
+
+    <div class="field">
+      <label>Status Sholat Duha</label>
+      <div class="mood-row">
+        <button class="mood-btn" data-status="done">✅ Sudah</button>
+        <button class="mood-btn" data-status="skip">⏸️ Belum</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Perasaan / Mood</label>
+      <div class="mood-row">
+        <button class="mood-btn" data-mood="😊"><span class="em">😊</span>Tenang</button>
+        <button class="mood-btn" data-mood="😌"><span class="em">😌</span>Khusyuk</button>
+        <button class="mood-btn" data-mood="😔"><span class="em">😔</span>Berat</button>
+        <button class="mood-btn" data-mood="🔥"><span class="em">🔥</span>Semangat</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Jurnal Refleksi (opsional)</label>
+      <textarea id="dayNote" placeholder="Tulis apa yang kamu rasakan, doa, atau syukur hari ini..."></textarea>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn-outline" id="btnCloseSheet">Tutup</button>
+      <button class="btn-primary" id="btnSaveDay">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONFETTI ============ -->
+<canvas id="confetti"></canvas>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   KONFIGURASI & STATE
+   ============================================================ */
+const TOTAL = 40;
+const STORAGE_KEY  = 'duha40_days_v2';
+const START_KEY    = 'duha40_start_v2';
+const NOTES_KEY    = 'duha40_notes_v2';
+const QUOTE_KEY    = 'duha40_quoteIdx_v2';
+
+const QUOTES = [
+  { text: 'Sholat Duha adalah sedekah bagi seluruh sendi tubuhmu.', cite: 'HR. Muslim' },
+  { text: 'Allah mencintai hamba yang menjaga sholat sunnahnya dengan istiqomah.', cite: 'Hadits Qudsi' },
+  { text: 'Barangsiapa sholat Duha, dosanya diampuni meski sebanyak buih di lautan.', cite: 'HR. At-Tirmidzi' },
+  { text: 'Dua rakaat Duha lebih berharga dari dunia dan seisinya.', cite: 'HR. Ahmad' },
+  { text: 'Jagalah sholat Duha, niscaya Allah jaga rezekimu.', cite: 'Ulama Salaf' },
+  { text: 'Istiqomah itu berat, tapi pahalanya luar biasa.', cite: 'Nasihat Hikmah' },
+  { text: 'Sebaik-baik amal adalah yang dilakukan terus-menerus meski sedikit.', cite: 'HR. Bukhari' },
+  { text: 'Setiap pagi sedekah bagi 360 sendi, cukup dengan dua rakaat Duha.', cite: 'HR. Muslim' }
+];
+
+const MILESTONES = [
+  { days: 7,  ico: '🥇', name: 'Pemula',    desc: '7 hari' },
+  { days: 14, ico: '🎯', name: 'Konsisten', desc: '14 hari' },
+  { days: 21, ico: '💎', name: 'Kebiasaan', desc: '21 hari' },
+  { days: 30, ico: '👑', name: 'Pejuang',   desc: '30 hari' },
+  { days: 40, ico: '🏆', name: 'Istiqomah', desc: '40 hari' },
+  { days: 40, ico: '✨', name: 'Sempurna',  desc: '100%' },
+  { days: 3,  ico: '🌱', name: 'Awal Baik', desc: '3 hari' },
+  { days: 10, ico: '⚡', name: 'Semangat',  desc: '10 hari' }
+];
+
+let days = loadArray(STORAGE_KEY, TOTAL, false);
+let notes = loadObject(NOTES_KEY);
+let startDate = localStorage.getItem(START_KEY) || todayISO();
+if (!localStorage.getItem(START_KEY)) {
+  localStorage.setItem(START_KEY, startDate);
+}
+
+/* ============================================================
+   HELPER FUNCTIONS
+   ============================================================ */
+function loadArray(key, len, fill) {
+  try {
+    const v = JSON.parse(localStorage.getItem(key) || 'null');
+    if (Array.isArray(v) && v.length === len) return v;
+  } catch (e) {}
+  return new Array(len).fill(fill);
+}
+
+function loadObject(key) {
+  try {
+    const v = JSON.parse(localStorage.getItem(key) || '{}');
+    return typeof v === 'object' && v !== null ? v : {};
+  } catch (e) { return {}; }
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(days));
+  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+}
+
+function todayISO() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function dateForDay(i) {
+  const d = new Date(startDate + 'T00:00:00');
+  d.setDate(d.getDate() + i);
+  return d;
+}
+
+function formatDate(date) {
+  const opts = { day: 'numeric', month: 'short', year: 'numeric' };
+  return date.toLocaleDateString('id-ID', opts);
+}
+
+function todayIndex() {
+  const start = new Date(startDate + 'T00:00:00');
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const diff = Math.floor((now - start) / 86400000);
+  return diff >= 0 && diff < TOTAL ? diff : -1;
+}
+
+function calcStreak() {
+  let s = 0;
+  for (let i = days.length - 1; i >= 0; i--) {
+    if (days[i]) s++;
+    else break;
+  }
+  return s;
+}
+
+function calcBestStreak() {
+  let best = 0, cur = 0;
+  for (let i = 0; i < days.length; i++) {
+    if (days[i]) { cur++; best = Math.max(best, cur); }
+    else cur = 0;
+  }
+  return best;
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+/* ============================================================
+   RENDER: GRID HARI
+   ============================================================ */
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  const tIdx = todayIndex();
+
+  days.forEach((done, i) => {
+    const el = document.createElement('button');
+    let cls = 'day';
+    if (done) cls += ' done';
+    if (i === tIdx) cls += ' today';
+    if (!done && i < tIdx && i !== tIdx) cls += ' missed';
+    if (notes[i] && notes[i].note) cls += ' has-note';
+    el.className = cls;
+    el.innerHTML = `<div class="num">${i + 1}</div><div class="lbl">${done ? 'selesai' : 'hari'}</div>`;
+    el.addEventListener('click', () => openDaySheet(i));
+    grid.appendChild(el);
+  });
+}
+
+/* ============================================================
+   RENDER: PROGRESS
+   ============================================================ */
+function updateProgress() {
+  const done = days.filter(Boolean).length;
+  const pct = Math.round((done / TOTAL) * 100);
+  const streak = calcStreak();
+
+  document.getElementById('doneCount').innerHTML = `${done}<span>/ 40</span>`;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statLeft').textContent = TOTAL - done;
+  document.getElementById('statStreak').textContent = streak;
+  document.getElementById('pctText').textContent = pct + '%';
+  document.getElementById('barFill').style.width = pct + '%';
+
+  const circumference = 2 * Math.PI * 36;
+  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById('ring').style.strokeDashoffset = offset;
+}
+
+/* ============================================================
+   RENDER: STATISTIK
+   ============================================================ */
+function renderStats() {
+  const done = days.filter(Boolean).length;
+  const best = calcBestStreak();
+  const rate = Math.round((done / TOTAL) * 100);
+  document.getElementById('sTotal').textContent = done;
+  document.getElementById('sBest').textContent = best;
+  document.getElementById('sRate').textContent = rate + '%';
+
+  // Bar chart per pekan
+  const bars = document.getElementById('bars');
+  bars.innerHTML = '';
+  for (let w = 0; w < 5; w++) {
+    const start = w * 8;
+    const end = Math.min(start + 8, TOTAL);
+    let c = 0;
+    for (let i = start; i < end; i++) if (days[i]) c++;
+    const max = end - start;
+    const pctH = max ? (c / max) * 100 : 0;
+
+    const item = document.createElement('div');
+    item.className = 'bar-item';
+    item.innerHTML = `<div class="bar ${c === 0 ? 'empty' : ''}" style="height:${Math.max(pctH, 4)}%"></div>`;
+    item.title = `Minggu ${w + 1}: ${c}/${max}`;
+    bars.appendChild(item);
+  }
+
+  // Heatmap
+  const hm = document.getElementById('heatmap');
+  hm.innerHTML = '';
+  const tIdx = todayIndex();
+  days.forEach((d, i) => {
+    const c = document.createElement('div');
+    c.className = 'hm-cell' + (d ? ' done' : '') + (i === tIdx ? ' today' : '');
+    c.title = `Hari ${i + 1} — ${formatDate(dateForDay(i))}`;
+    c.addEventListener('click', () => openDaySheet(i));
+    hm.appendChild(c);
+  });
+
+  // Milestones
+  const ms = document.getElementById('milestones');
+  ms.innerHTML = '';
+  MILESTONES.forEach(m => {
+    const unlocked = done >= m.days;
+    const el = document.createElement('div');
+    el.className = 'ms ' + (unlocked ? 'unlocked' : 'locked');
+    el.innerHTML = `<span class="badge-ico">${m.ico}</span><b>${m.name}</b><small>${m.desc}</small>`;
+    ms.appendChild(el);
+  });
+}
+
+/* ============================================================
+   RENDER: JURNAL
+   ============================================================ */
+function renderJournal() {
+  const list = document.getElementById('journalList');
+  list.innerHTML = '';
+
+  const entries = Object.keys(notes)
+    .map(Number)
+    .filter(i => notes[i] && (notes[i].note || notes[i].mood))
+    .sort((a, b) => b - a);
+
+  if (entries.length === 0) {
+    list.innerHTML = `
+      <div class="journal-empty">
+        <span class="ico">📖</span>
+        Belum ada catatan.<br>Klik salah satu hari untuk mulai menulis jurnal refleksi.
+      </div>`;
+    return;
+  }
+
+  entries.forEach(i => {
+    const n = notes[i];
+    const el = document.createElement('div');
+    el.className = 'journal-item';
+    const mood = n.mood ? ` ${n.mood}` : '';
+    const text = n.note ? n.note : '(Tanpa catatan teks)';
+    el.innerHTML = `
+      <div class="journal-head">
+        <span class="day-num">Hari ke-${i + 1}${mood}</span>
+        <span class="date">${formatDate(dateForDay(i))}</span>
+      </div>
+      <div class="journal-body">${escapeHtml(text)}</div>
+    `;
+    el.addEventListener('click', () => openDaySheet(i));
+    list.appendChild(el);
+  });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+/* ============================================================
+   RENDER: QUOTE
+   ============================================================ */
+function renderQuote() {
+  const idx = parseInt(localStorage.getItem(QUOTE_KEY) || '0', 10);
+  const q = QUOTES[idx % QUOTES.length];
+  document.getElementById('dailyQuote').innerHTML = `"${q.text}"<cite>— ${q.cite}</cite>`;
+}
+
+function rotateQuote() {
+  const idx = parseInt(localStorage.getItem(QUOTE_KEY) || '0', 10);
+  localStorage.setItem(QUOTE_KEY, (idx + 1) % QUOTES.length);
+  renderQuote();
+}
+
+/* ============================================================
+   DAY SHEET
+   ============================================================ */
+let currentDayIdx = null;
+let currentMood = null;
+
+function openDaySheet(i) {
+  currentDayIdx = i;
+  const n = notes[i] || {};
+  currentMood = n.mood || null;
+
+  document.getElementById('dayTitle').textContent = `Hari ke-${i + 1}`;
+  document.getElementById('daySub').textContent = formatDate(dateForDay(i));
+  document.getElementById('dayNote').value = n.note || '';
+
+  // Status
+  document.querySelectorAll('.mood-btn[data-status]').forEach(b => {
+    b.classList.toggle('active', (b.dataset.status === 'done') === days[i]);
+  });
+  // Mood
+  document.querySelectorAll('.mood-btn[data-mood]').forEach(b => {
+    b.classList.toggle('active', b.dataset.mood === currentMood);
+  });
+
+  document.getElementById('dayOverlay').classList.add('active');
+}
+
+function closeDaySheet() {
+  document.getElementById('dayOverlay').classList.remove('active');
+  currentDayIdx = null;
+}
+
+document.getElementById('dayOverlay').addEventListener('click', (e) => {
+  if (e.target.id === 'dayOverlay') closeDaySheet();
+});
+
+document.querySelectorAll('.mood-btn[data-status]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mood-btn[data-status]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.mood-btn[data-mood]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const m = btn.dataset.mood;
+    if (currentMood === m) {
+      currentMood = null;
+      btn.classList.remove('active');
+    } else {
+      currentMood = m;
+      document.querySelectorAll('.mood-btn[data-mood]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  });
+});
+
+document.getElementById('btnCloseSheet').addEventListener('click', closeDaySheet);
+
+document.getElementById('btnSaveDay').addEventListener('click', () => {
+  if (currentDayIdx === null) return;
+  const i = currentDayIdx;
+  const prevDone = days[i];
+
+  // Status
+  const statusBtn = document.querySelector('.mood-btn[data-status].active');
+  const newDone = statusBtn && statusBtn.dataset.status === 'done';
+  days[i] = newDone;
+
+  // Notes
+  const noteText = document.getElementById('dayNote').value.trim();
+  if (noteText || currentMood) {
+    notes[i] = { note: noteText, mood: currentMood || null, ts: Date.now() };
+  } else {
+    delete notes[i];
+  }
+
+  save();
+  closeDaySheet();
+  renderAll();
+
+  const doneCount = days.filter(Boolean).length;
+
+  if (!prevDone && newDone) {
+    if (doneCount === TOTAL) {
+      showToast('🎉 Masya Allah! 40 hari selesai!');
+      launchConfetti();
+    } else if (doneCount % 7 === 0) {
+      showToast(`🔥 Hebat! ${doneCount} hari tercapai!`);
+      launchConfetti();
+    } else {
+      showToast(`✓ Hari ke-${i + 1} tercatat`);
+    }
+  } else if (prevDone && !newDone) {
+    showToast(`Hari ke-${i + 1} dibatalkan`);
+  } else {
+    showToast('💾 Catatan disimpan');
+  }
+});
+
+/* ============================================================
+   RESET & EXPORT
+   ============================================================ */
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (!confirm('Yakin mau reset semua catatan? Progress & jurnal akan hilang.')) return;
+  days = new Array(TOTAL).fill(false);
+  notes = {};
+  startDate = todayISO();
+  localStorage.setItem(START_KEY, startDate);
+  save();
+  renderAll();
+  showToast('Catatan direset. Bismillah mulai lagi!');
+});
+
+document.getElementById('btnExport').addEventListener('click', () => {
+  const data = {
+    version: 2,
+    exported: new Date().toISOString(),
+    startDate,
+    days,
+    notes
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `duha40-${todayISO()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📦 Data berhasil di-export');
+});
+
+/* ============================================================
+   TAB NAV
+   ============================================================ */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + tab.dataset.view).classList.add('active');
+
+    if (tab.dataset.view === 'stats') renderStats();
+    if (tab.dataset.view === 'journal') renderJournal();
+  });
+});
+
+/* ============================================================
+   CONFETTI (ringan, tanpa library)
+   ============================================================ */
+function launchConfetti() {
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.display = 'block';
+
+  const colors = ['#d4af37', '#f0d879', '#1fa87a', '#14805e', '#ffffff'];
+  const particles = [];
+
+  for (let i = 0; i < 90; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * 100,
+      w: 6 + Math.random() * 6,
+      h: 6 + Math.random() * 6,
+      vy: 2 + Math.random() * 3.5,
+      vx: -1.5 + Math.random() * 3,
+      rot: Math.random() * Math.PI,
+      vr: -0.15 + Math.random() * 0.3,
+      color: colors[Math.floor(Math.random() * colors.length)]
+    });
+  }
+
+  let frames = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    particles.forEach(p => {
+      if (p.y < canvas.height + 30) {
+        alive = true;
+        p.y += p.vy;
+        p.x += p.vx;
+        p.rot += p.vr;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+    });
+    frames++;
+    if (alive && frames < 260) {
+      requestAnimationFrame(draw);
+    } else {
+      canvas.style.display = 'none';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  draw();
+}
+
+/* ============================================================
+   MASTER RENDER
+   ============================================================ */
+function renderAll() {
+  renderGrid();
+  updateProgress();
+  renderStats();
+  renderJournal();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  renderAll();
+  renderQuote();
+
+  // Ganti quote tiap 30 detik
+  setInterval(rotateQuote, 30000);
+
+  // Auto refresh jika melewati tengah malam
+  let lastDate = todayISO();
+  setInterval(() => {
+    const t = todayISO();
+    if (t !== lastDate) {
+      lastDate = t;
+      renderAll();
+      showToast('🌅 Hari baru telah tiba!');
+    }
+  }, 60000);
+
+  // Sapa pengguna pertama kali hari ini
+  const lastVisit = localStorage.getItem('duha40_lastVisit');
+  if (lastVisit !== todayISO()) {
+    localStorage.setItem('duha40_lastVisit', todayISO());
+    setTimeout(() => {
+      const t = todayIndex();
+      if (t >= 0 && !days[t]) {
+        showToast(`Bismillah, hari ke-${t + 1} menanti ✨`);
+      }
+    }, 900);
+  }
+}
+
+// Re-render ring saat resize (kanvas confetti)
+window.addEventListener('resize', () => {
+  const c = document.getElementById('confetti');
+  if (c.style.display === 'block') {
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+  }
+});
+
+// Keyboard shortcut: Esc untuk tutup sheet
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDaySheet();
+});
+
+// Jalankan
+init();
+</script>
+
+</body>
+</html>
